@@ -18,6 +18,12 @@ namespace AppBase
             base.OnStartup(e);
 
             this.MainWindow = new Views.MainWindowView();
+
+            this.MainWindow.DataContext = new ViewModels.MainWindowViewModel();
+            // la view non ha nessun legame con la view model
+            // è solo qui che si collega 
+            // programmatore splittato dal grafico
+
             this.MainWindow.Show();
         }
 

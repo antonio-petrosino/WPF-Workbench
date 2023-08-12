@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppBase.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:vm="clr-namespace:AppBase.ViewModels"
+        Title="{Binding Path=Title}" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}"
+        >
+    <!--False non mi mostra l'anteprima a designtime, True otherwise.-->
+    <!--<Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>-->
+
+    <Window.Resources>
+        <local:IntToStringConverter x:Key="IntToStringConverter" />
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+    
+    <!--<Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0">Clicca1</Button>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+        <Button Grid.Column="2">Clicca2</Button>
+        <GridSplitter Grid.Column="3" HorizontalAlignment="Stretch"/>
+        <Button Grid.Column="4">Clicca3</Button>
+        <GridSplitter Grid.Column="5" HorizontalAlignment="Stretch"/>
+        <Button Grid.Column="6">Clicca3</Button>
+    </Grid>-->
+    <StackPanel>
+        <TextBox x:Name="txtDemo" Text="{Binding Path=MyProperty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Button> Click </Button>
+        <TextBox Text="{Binding ElementName=txtDemo, Path=Text}"/>
+        <TextBox Text="{Binding Path=Valore, Mode=TwoWay, Converter={StaticResource IntToStringConverter}}"/>
+
+        <CheckBox Margin="4" IsChecked="{Binding Path=Chiuso}">Chiuso</CheckBox>
+        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=Chiuso, Converter={StaticResource BoolToVisibility}}">
+            <TextBlock VerticalAlignment="Center" Margin="8,0" Text="Data Chiusura" />
+            <DatePicker/>
+        </StackPanel>
         
-    </Grid>
+    </StackPanel>
 </Window>

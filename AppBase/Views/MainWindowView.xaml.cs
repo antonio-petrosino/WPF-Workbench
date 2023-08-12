@@ -24,5 +24,12 @@ namespace AppBase.Views
         {
             InitializeComponent();
         }
+
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    Binding binding = new Binding("MyProperty");
+        //    binding.Source = DataContext; // inb automatico erediti il datacontex del contenitore
+        //    txtDemo.SetBinding(TextBox.TextProperty, binding);
+        //}
     }
 }
