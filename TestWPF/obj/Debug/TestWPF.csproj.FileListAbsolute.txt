@@ -15,20 +15,3 @@ E:\Workspace\Github\Workbench Solution\TestWPF\obj\Debug\TestWPF.csproj.Generate
 E:\Workspace\Github\Workbench Solution\TestWPF\obj\Debug\TestWPF.csproj.CoreCompileInputs.cache
 E:\Workspace\Github\Workbench Solution\TestWPF\obj\Debug\TestWPF.exe
 E:\Workspace\Github\Workbench Solution\TestWPF\obj\Debug\TestWPF.pdb
-E:\Workspace\Github\WPF-Workbench\TestWPF\bin\Debug\TestWPF.exe.config
-E:\Workspace\Github\WPF-Workbench\TestWPF\bin\Debug\TestWPF.exe
-E:\Workspace\Github\WPF-Workbench\TestWPF\bin\Debug\TestWPF.pdb
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF.csproj.AssemblyReference.cache
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\login.g.cs
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\MainWindow.g.cs
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\App.g.cs
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF_MarkupCompile.cache
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF_MarkupCompile.lref
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\login.baml
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\MainWindow.baml
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF.g.resources
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF.Properties.Resources.resources
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF.csproj.GenerateResource.cache
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF.csproj.CoreCompileInputs.cache
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF.exe
-E:\Workspace\Github\WPF-Workbench\TestWPF\obj\Debug\TestWPF.pdb
