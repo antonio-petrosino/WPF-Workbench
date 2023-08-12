@@ -1,0 +1,27 @@
+﻿<Window x:Class="TestWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <Menu Margin="0,0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Log In" Click="NewClick"/>
+                <MenuItem Header="_Open" Click="MenuItem_Click"/>
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" Click="ExitEvent" />
+            </MenuItem>
+            <MenuItem Header="Opzioni">
+                <MenuItem Header="_Test" />
+                <MenuItem Header="_Test1" />
+                <MenuItem Header="_Test2" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+        </Menu>
+    </StackPanel>
+</Window>
