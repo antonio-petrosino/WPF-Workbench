@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -66,6 +67,10 @@
     <Compile Include="Views\RappresentanteView.xaml.cs">
       <DependentUpon>RappresentanteView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowServiceView.xaml.cs">
+      <DependentUpon>WindowServiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowService.cs" />
     <Page Include="Views\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +92,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Templates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowServiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

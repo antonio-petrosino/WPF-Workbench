@@ -1,4 +1,5 @@
-﻿using AppBase.Models;
+﻿using AppBase;
+using AppBase.Models;
 using AppBase.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -106,7 +107,7 @@ namespace Azienda.ViewModels
             if (_dipendenteSelezionato is Rappresentante)
                 viewModel = new RappresentanteViewModel(_dipendenteSelezionato);
 
-            //WindowService.ShowDialog("Dettaglio Dipendente", viewModel);
+            WindowService.ShowDialog("Dettaglio Dipendente", viewModel);
         }
 
         private bool dettaglioCanExec(object param)
