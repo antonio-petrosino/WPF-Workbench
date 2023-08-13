@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppBase.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -32,6 +33,9 @@ namespace AppBase.ViewModels
 
         public String Title { get; set; }
 
+
+        public Array GenereItems { get; private set; }
+
         public MainWindowViewModel() {
             if (IsDesignMode)
             {
@@ -41,6 +45,25 @@ namespace AppBase.ViewModels
             {
                 Title = "Applicazione di esempio: NON siamo in design mode";
             }
+
+            GenereItems = Enum.GetValues(typeof(GenereEnum));
+
+            Items = PopulateFromDB();
+
+        }
+
+        private Persona[] PopulateFromDB()
+        {
+
+            Items = new Models.Persona[] {
+            new Models.Persona() { Nome = "Mario", Cognome = "Rossi", DataDiNascita = new DateTime(1970, 1, 1), Genere = Models.GenereEnum.Maschio, Email= "mario.rossi@server.it"},
+            new Models.Persona() { Nome = "Maria", Cognome = "Rossa", DataDiNascita = new DateTime(1991, 12, 1), Genere = Models.GenereEnum.Femmina, Email= "maria.rossa@server.it"},
+            new Models.Persona() { Nome = "Gianni", Cognome = "Toloi", DataDiNascita = new DateTime(2001, 1, 12), Genere = Models.GenereEnum.Maschio, Email= "gianni.toloi@server.it"},
+            new Models.Persona() { Nome = "Mario", Cognome = "Mazzitelli", DataDiNascita = new DateTime(1999, 3, 1), Genere = Models.GenereEnum.Maschio, Email= "mario.mazzitelli@server.it"},
+            };
+
+            //throw new NotImplementedException();
+            return Items;
         }
 
         private string _myProperty = "Test iniziale";
@@ -60,5 +83,10 @@ namespace AppBase.ViewModels
                 OnPropertyChanged(); // necessario alla sync
             }
         }
+
+
+        public Models.Persona[] Items { get; private set; }
+
+
     }
 }
