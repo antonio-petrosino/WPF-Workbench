@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="AppBase.Views.RappresentanteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppBase.Views"
+             xmlns:vm="clr-namespace:AppBase.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:RappresentanteViewModel}"
+             Width="auto" Height="auto" Language="it">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="4" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nome" />
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Nome}" />
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Cognome" />
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Cognome}" />
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Data di nascita" />
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=DataNascita, StringFormat={}{0:dd/MM/yyyy}}" />
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Genere" />
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Path=Genere}" />
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Email" />
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Path=Email}" />
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Stipendio" />
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Path=Stipendio, StringFormat=C2}" />
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Diaria" />
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding Path=Diaria, StringFormat=C2}" />
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="Totale" />
+        <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Path=Totale, StringFormat=C2}" />
+    </Grid>
+</UserControl>
