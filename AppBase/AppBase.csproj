@@ -67,8 +67,10 @@
     <Compile Include="Models\Persona.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PersonaViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Views\BoolToVisibilityConverter.cs" />
+    <Compile Include="Views\GenereToBrushConverter.cs" />
     <Compile Include="Views\IntToStringConverter.cs" />
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>

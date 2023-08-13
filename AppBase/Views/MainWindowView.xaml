@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:AppBase.ViewModels"
         Title="{Binding Path=Title}" Height="auto" Width="auto"
-        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}"
-        >
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
     <!--False non mi mostra l'anteprima a designtime, True otherwise.-->
     <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -16,7 +15,7 @@
 
     <Window.Resources>
         <local:IntToStringConverter x:Key="IntToStringConverter" />
-        <local:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibility" />        
     </Window.Resources>
     
     <!--<Grid>
@@ -66,7 +65,32 @@
                 </StackPanel>
             </StackPanel>
 
-        <ListBox Grid.Column="0" Grid.Row="1" Margin="4" ItemsSource="{Binding Path=Items}" x:Name="listBox1" />
+        <ListBox Grid.Column="0" Grid.Row="1" Margin="4" ItemsSource="{Binding Path=Items}" x:Name="listBox1">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <!--<ListBox.Resources>
+                    <local:GenereToBrushConverter x:Key="GenereToBrush" />
+                </ListBox.Resources>-->
+                <ListBox.ItemTemplate>
+                    <DataTemplate>                        
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="{Binding Path=Colore}" />
+                                    <!--<Setter Property="Background" Value="Aqua" />-->
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="{Binding Path=Nome}"/>
+                            <!--<TextBlock Text="{Binding Path=Nome}" Foreground="{Binding Path=Colore}"/>-->
+                            <!--<TextBlock Text="{Binding Path=Nome}" Foreground="{Binding Path=Genere, Converter={StaticResource GenereToBrush}}"/>-->
+                            <TextBlock Text="{Binding Path=Cognome}" Margin="4,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+        </ListBox>
 
         <Grid Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Margin="4">
             <Grid.ColumnDefinitions>

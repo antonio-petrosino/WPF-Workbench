@@ -52,15 +52,18 @@ namespace AppBase.ViewModels
 
         }
 
-        private Persona[] PopulateFromDB()
+        private List<PersonaViewModel> PopulateFromDB()
         {
 
-            Items = new Models.Persona[] {
+            var persone  = new List<Models.Persona> {
             new Models.Persona() { Nome = "Mario", Cognome = "Rossi", DataDiNascita = new DateTime(1970, 1, 1), Genere = Models.GenereEnum.Maschio, Email= "mario.rossi@server.it"},
             new Models.Persona() { Nome = "Maria", Cognome = "Rossa", DataDiNascita = new DateTime(1991, 12, 1), Genere = Models.GenereEnum.Femmina, Email= "maria.rossa@server.it"},
             new Models.Persona() { Nome = "Gianni", Cognome = "Toloi", DataDiNascita = new DateTime(2001, 1, 12), Genere = Models.GenereEnum.Maschio, Email= "gianni.toloi@server.it"},
             new Models.Persona() { Nome = "Mario", Cognome = "Mazzitelli", DataDiNascita = new DateTime(1999, 3, 1), Genere = Models.GenereEnum.Maschio, Email= "mario.mazzitelli@server.it"},
+            new Models.Persona() { Nome = "Altro", Cognome = "Mazzitelli", DataDiNascita = new DateTime(1999, 3, 1), Genere = Models.GenereEnum.Altro, Email= "mario.mazzitelli@server.it"},
             };
+
+            Items = persone.Select(p => new PersonaViewModel(p)).ToList();
 
             //throw new NotImplementedException();
             return Items;
@@ -85,7 +88,8 @@ namespace AppBase.ViewModels
         }
 
 
-        public Models.Persona[] Items { get; private set; }
+        //public Models.Persona[] Items { get; private set; }
+        public List<PersonaViewModel> Items { get; private set; }
 
 
     }
