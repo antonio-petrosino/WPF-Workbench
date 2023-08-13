@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+    
+    
+    <Style x:Key="MyTBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Background" Value="Yellow"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="ButtonStyleBase" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="30"/>
+    </Style>
+
+    <Style TargetType="Button" BasedOn="{StaticResource ButtonStyleBase}"/>
+    <!--Questo diventa lo stile di base!-->
+</ResourceDictionary>

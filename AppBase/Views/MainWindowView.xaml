@@ -65,7 +65,8 @@
                 </StackPanel>
             </StackPanel>
 
-        <ListBox Grid.Column="0" Grid.Row="1" Margin="4" ItemsSource="{Binding Path=Items}" x:Name="listBox1">
+        <!--<ListBox Grid.Column="0" Grid.Row="1" Margin="4" ItemsSource="{Binding Path=Items}" x:Name="listBox1">-->
+            <ListBox Grid.Column="0" Grid.Row="1" Margin="4" ItemsSource="{Binding Path=Items}" SelectedItem="{Binding SelectedItem}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -92,7 +93,13 @@
                 </ListBox.ItemTemplate>
         </ListBox>
 
-        <Grid Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Margin="4">
+        <Grid Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Margin="4" IsEnabled="{Binding Path=FormEnabled}">
+                <!--<Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Background" Value="Green" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </Grid.Resources>-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
@@ -103,26 +110,41 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nome" />
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding ElementName=listBox1, Path=SelectedItem.Nome}"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Nome" Style="{DynamicResource MyTBlockStyle}"/>
+                <!--<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding ElementName=listBox1, Path=SelectedItem.Nome}" />-->
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=SelectedItem.Nome}" />
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Cognome" />
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding ElementName=listBox1, Path=SelectedItem.Cognome}"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Cognome" />
+            <!--<TextBox Grid.Column="1" Grid.Row="1" Text="{Binding ElementName=listBox1, Path=SelectedItem.Cognome}"/>-->
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=SelectedItem.Cognome}"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Genere" />
-            <ComboBox Grid.Column="1" Grid.Row="2" 
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Genere" />
+            <!--<ComboBox Grid.Column="1" Grid.Row="2" 
                       ItemsSource="{Binding Path=GenereItems}"
-                      SelectedItem="{Binding ElementName=listBox1, Path=SelectedItem.Genere}"/>
+                      SelectedItem="{Binding ElementName=listBox1, Path=SelectedItem.Genere}"/>-->
 
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="Data di nascita" />
-            <DatePicker Grid.Column="1" Grid.Row="3" Text="{Binding ElementName=listBox1, Path=SelectedItem.DataDiNascita}"/>
+                <ComboBox Grid.Column="1" Grid.Row="2" 
+                    ItemsSource="{Binding Path=GenereItems}"
+                    SelectedItem="{Binding Path=SelectedItem.Genere}"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="Email" />
-            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding ElementName=listBox1, Path=SelectedItem.Email}"/>
-        </Grid>
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Data di nascita" />
+            <!--<DatePicker Grid.Column="1" Grid.Row="3" Text="{Binding ElementName=listBox1, Path=SelectedItem.DataDiNascita}"/>-->
+                <DatePicker Grid.Column="1" Grid.Row="3" Text="{Binding Path=SelectedItem.DataDiNascita}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Email" />
+            <!--<TextBox Grid.Column="1" Grid.Row="4" Text="{Binding ElementName=listBox1, Path=SelectedItem.Email}"/>-->
+                <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=SelectedItem.Email}"/>
 
 
+            </Grid>
+            <!--<Button Grid.Column="1" Grid.Row="1">Aggiornami!</Button>-->
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="4">
+                <Button Content="Aggiungi" Command="{Binding Path=AggiungiCommand}"/>                
+                <Button Content="Elimina" Command="{Binding Path=EliminaCommand}"/>
+                <TextBlock Text="{Binding Path=LastActionText}"/>
+            </StackPanel>
 
         </Grid>
     </StackPanel>
