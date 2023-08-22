@@ -5,6 +5,18 @@ namespace es_01
 {
     class Program
     {
+
+        static int TaskSomma(int[] v)
+        {
+              int somma = 0;
+            foreach (int i in v)
+            {
+                somma += i;
+                Thread.Sleep(1000);
+            }
+            return somma;
+        }
+
         static void thread_with_param(Object obj)
         {
             if (obj.GetType() != typeof(string))
@@ -80,7 +92,8 @@ namespace es_01
             // Console.WriteLine("Hello World! Mio");
 
             //String TypeOfMain = "Test1";
-            String TypeOfMain = "Thread";
+            //String TypeOfMain = "Thread";
+            String TypeOfMain = "Task";
 
             if (TypeOfMain == "Test1")
             {
@@ -153,6 +166,58 @@ namespace es_01
 
                 // la scrittura su file è sequenziale, thread concorrenti non hanno senso
                 // se scrivo su console invece è visibile
+
+            }else if (TypeOfMain == "Task") {
+                StreamWriter? streamWriter = null;
+
+
+                Task t1 = new Task(() => thread1(streamWriter));
+                Task t2 = new Task(() => thread2(streamWriter));
+                Task t3 = new Task(() => thread3(streamWriter));
+                               
+                
+                t1.Start();
+                t2.Start();
+                t3.Start();
+
+                Task.WaitAll(t1, t2, t3);
+
+                Console.WriteLine("Task completati");
+
+                int[] v = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+
+                Task<int> somma =  Task<int>.Run(() => TaskSomma(v));
+                //Task.WaitAll();
+                int[] v2 = new int[] { 1, 2, 3 };
+                Task<int> somma2 = Task<int>.Run(() => TaskSomma(v2));
+                var aw = somma2.GetAwaiter();
+
+                aw.OnCompleted(() => Console.WriteLine($"Task completato, somma = {aw.GetResult()}"));
+
+
+                while (true)
+                {
+                    Console.WriteLine($"Stato: {somma.Status}");
+
+                    //if(somma.IsCompleted)
+                    //    break;  
+                    if (somma.Status == TaskStatus.RanToCompletion)
+                    {
+                        break;
+                    }
+                    if (somma.Status == TaskStatus.Faulted)
+                    {
+                        Console.WriteLine($"Task fallito: {somma.Exception}");
+                        break;
+                    }
+
+                    Thread.Sleep(300);
+                }
+
+
+
+                //il write line è bloccante, quindi aspetta che il task sia completato
+                Console.WriteLine($"Task completati, somma = {somma.Result}");
 
             }
 
