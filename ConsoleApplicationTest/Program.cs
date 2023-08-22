@@ -5,6 +5,17 @@ namespace es_01
 {
     class Program
     {
+        static void thread_with_param(Object obj)
+        {
+            if (obj.GetType() != typeof(string))
+            {
+                Console.WriteLine($"Thread with not string param.");
+            }
+            else
+                Console.WriteLine($"Thread with param: {obj}");
+        }
+
+
         static void thread1(StreamWriter writeHere)
         {
             if (writeHere == null)
@@ -110,7 +121,7 @@ namespace es_01
                 //Thread t2 = new Thread(() => thread2(streamWriter));
                 //Thread t3 = new Thread(() => thread3(streamWriter));
 
-                StreamWriter streamWriter = null;
+                StreamWriter? streamWriter = null;
                 Thread t1 = new Thread(() => thread1(streamWriter));
                 Thread t2 = new Thread(() => thread2(streamWriter));
                 Thread t3 = new Thread(() => thread3(streamWriter));
@@ -125,7 +136,20 @@ namespace es_01
                 t2.Join();  
                 t3.Join();
 
-                if (streamWriter != null) { streamWriter.Close(); }
+                streamWriter?.Close();
+
+
+                Thread t0 = new Thread(thread_with_param);
+                Thread t00 = new Thread(thread_with_param);
+                Thread t000 = new Thread(thread_with_param);
+                t0.Start(new String("Chao!!!"));                
+                t00.Start(2);
+                t000.Start("Chao###");
+                
+                t0.Join();
+                t00.Join();
+                t000.Join();
+
 
                 // la scrittura su file è sequenziale, thread concorrenti non hanno senso
                 // se scrivo su console invece è visibile
