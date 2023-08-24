@@ -1,6 +1,6 @@
 ﻿using ConsoleApplicationTest;
 using System;
-
+using System.Diagnostics;
 using static ConsoleApplicationTest.CustomFunction;
 
 namespace es_01
@@ -12,6 +12,9 @@ namespace es_01
 
         public static void Main(string[] args)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            //Stopwatch stopwatch = new Stopwatch.StartNew();
             // struct conviene rispetto alla class solo se occupa uno spazio inferire a 16 byte
             // struct è un tipo di dato valore, class è un tipo di dato riferimento
 
@@ -58,7 +61,8 @@ namespace es_01
             //    SyncORAsync();
             //}
 
-
+            stopwatch.Stop();
+            Console.WriteLine($"Time elapsed: {stopwatch.ElapsedMilliseconds} ms");
         }
 
 
