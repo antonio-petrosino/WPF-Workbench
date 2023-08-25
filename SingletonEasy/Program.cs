@@ -46,7 +46,7 @@ namespace SingletonEasy
 
     class Program
     {
-        public interface IPersonaggio
+        interface IPersonaggio
         {
             public void IncreaseExperience(int quantity);
             public int GetExperience();
@@ -56,7 +56,7 @@ namespace SingletonEasy
         }
 
 
-        public class Druido : IPersonaggio
+        class Druido : IPersonaggio
         {
             private int _experience_of_the_druid = 0;
             private int _level_of_the_druid = 0;
@@ -68,7 +68,7 @@ namespace SingletonEasy
             public int GetLevel() { return _level_of_the_druid; }
         }
 
-        public class Guerriero : IPersonaggio
+        class Guerriero : IPersonaggio
         {
             private int _experience_of_the_warrior = 0;
             private int _level_of_the_warrior = 0;
@@ -80,7 +80,7 @@ namespace SingletonEasy
             public int GetLevel() { return _level_of_the_warrior; }
         }
 
-        public class Mago : IPersonaggio
+        class Mago : IPersonaggio
         {
             private int _experience_of_the_mage = 0;
             private int _level_of_the_mage = 0;
@@ -92,10 +92,121 @@ namespace SingletonEasy
             public int GetLevel() { return _level_of_the_mage; }
         }
 
+        interface ICustomClonable<TEntity>
+        {
+            TEntity Clone();    
+            
+            void CustomConsoleWriter();
+        }
+
+        class CustomString : ICustomClonable<CustomString>
+        {
+            private String _stringa = null;
+
+            public void Edit(String value)
+            {
+                _stringa = value;
+            }
+
+            public String Stringa { get { return _stringa; } set { _stringa = value; } }
+
+            public CustomString(String elem) { _stringa = elem; }
+
+            public CustomString Clone()
+            {
+                return new CustomString(this._stringa);
+            }
+
+            public void CustomConsoleWriter()
+            {
+                Console.WriteLine($"Stringa: {_stringa}");
+            }
+            public override string ToString()
+            {
+                return $"{_stringa}";
+            }
+        }
+
+        class MyList<TEntity> where TEntity : ICustomClonable<TEntity> // where UEntity : TEntity vincolo di ereditarietà
+        {
+            TEntity[] _array = null;
+            int _count = 0;
+
+            int capacita { get; set; } = 1;
+
+            public int Count { get { return _count; } }
+            public MyList()
+            {
+                _array = new TEntity[capacita];
+            }
+
+            public void Add(TEntity nuovo)
+            {
+                if (_count == capacita) Espandi();
+                                
+                _array[_count] = nuovo.Clone();
+                // grazie a questa riga con il clona non avrò più il riferimento all'oggetto di provenienza
+                // evitando errori propagati da modifiche successive
+
+                //_array[_count] = nuovo;
+                _count++; 
+
+                Console.WriteLine($"Aggiunto elemento: {_array[_count - 1]}");
+            }
+
+            public void Espandi(int new_elements = 1)
+            {
+                TEntity[] _new_array = new TEntity[capacita + new_elements];
+                _array.CopyTo(_new_array, 0);
+                _array = _new_array;
+                capacita += new_elements;
+            }
+
+            public TEntity this[int index]
+            {
+                get { return _array[index]; }
+                set { _array[index] = value; }
+            }
+        }
+
         static void Main(string[] args)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+
+            MyList<CustomString> list = new MyList<CustomString>();
+
+            CustomString prova1 = new CustomString("Stringa1");
+            CustomString prova2 = new CustomString("Stringa2");
+            CustomString prova3 = new CustomString("Stringa3");
+            CustomString prova4 = new CustomString("Stringa4");
+            CustomString prova5 = new CustomString("Stringa5");
+
+            list.Add(prova1);
+            list.Add(prova2);
+            list.Add(prova3);
+            list.Add(prova4);
+            list.Add(prova5);
+
+
+            prova1.Edit("MOD:Stringa1");
+            prova2.Edit("MOD:Stringa2");
+            prova3.Edit("MOD:Stringa3");
+
+            Console.WriteLine("Custom MyList() with generics");
+            list[0].CustomConsoleWriter();
+            list[1].CustomConsoleWriter();
+            list[2].CustomConsoleWriter();
+            list[3].CustomConsoleWriter();
+            list[4].CustomConsoleWriter();
+
+            Console.WriteLine("var");
+            Console.WriteLine($"prova1: {prova1}");
+            Console.WriteLine($"prova2: {prova2}");
+            Console.WriteLine($"prova3: {prova3}");
+            Console.WriteLine($"prova4: {prova4}");
+            Console.WriteLine($"prova5: {prova5}");
+
 
             MySingletonClass.Instance.Metodo();
             MySingletonClass.Instance.Metodo();
