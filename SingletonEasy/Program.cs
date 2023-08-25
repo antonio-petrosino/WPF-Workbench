@@ -101,16 +101,19 @@ namespace SingletonEasy
 
         class CustomString : ICustomClonable<CustomString>
         {
+
+            static public int NumberOfCreatedObject;
+
             private String _stringa = null;
+
+            public String Stringa { get { return _stringa; } set { _stringa = value; } }
 
             public void Edit(String value)
             {
                 _stringa = value;
             }
-
-            public String Stringa { get { return _stringa; } set { _stringa = value; } }
-
-            public CustomString(String elem) { _stringa = elem; }
+            
+            public CustomString(String elem) { _stringa = elem; NumberOfCreatedObject++; }
 
             public CustomString Clone()
             {
@@ -127,22 +130,43 @@ namespace SingletonEasy
             }
         }
 
+
+        static void Scambia<TEntity>(ref TEntity a, ref TEntity b)
+        {
+            //TEntity temp = a;
+            //a = b;
+            //b = temp;
+            (b, a) = (a, b);
+            Console.WriteLine($"Scambio: {a} <-> {b}");
+        }
+
         class MyList<TEntity> where TEntity : ICustomClonable<TEntity> // where UEntity : TEntity vincolo di ereditarietà
         {
             TEntity[] _array = null;
             int _count = 0;
 
-            int capacita { get; set; } = 1;
+            int _capacita { get; set; }
 
             public int Count { get { return _count; } }
-            public MyList()
+            public int Capacita { get { return _capacita; } }
+
+
+            public MyList(int cap = 1)
             {
-                _array = new TEntity[capacita];
+                _capacita = cap;
+
+                _array = new TEntity[_capacita];
+                
+                for(int i = 0; i < _capacita; i++)
+                {
+                    _array[i] = default;
+                }
+
             }
 
             public void Add(TEntity nuovo)
             {
-                if (_count == capacita) Espandi();
+                if (_count == _capacita) Espandi();
                                 
                 _array[_count] = nuovo.Clone();
                 // grazie a questa riga con il clona non avrò più il riferimento all'oggetto di provenienza
@@ -155,11 +179,12 @@ namespace SingletonEasy
             }
 
             public void Espandi(int new_elements = 1)
-            {
-                TEntity[] _new_array = new TEntity[capacita + new_elements];
+            {                
+                TEntity[] _new_array = new TEntity[_capacita + new_elements];
                 _array.CopyTo(_new_array, 0);
                 _array = _new_array;
-                capacita += new_elements;
+                _capacita += new_elements;
+                Console.WriteLine($"Espansione a {_capacita} elementi");
             }
 
             public TEntity this[int index]
@@ -176,11 +201,30 @@ namespace SingletonEasy
 
             MyList<CustomString> list = new MyList<CustomString>();
 
+            // utilizzo di un parametro statico, viene inizializzato una sola volta
+            Console.WriteLine($"Numero di oggetti creati: {CustomString.NumberOfCreatedObject}");
+
             CustomString prova1 = new CustomString("Stringa1");
+
+            Console.WriteLine($"Numero di oggetti creati: {CustomString.NumberOfCreatedObject}");
+
             CustomString prova2 = new CustomString("Stringa2");
+            Console.WriteLine($"Numero di oggetti creati: {CustomString.NumberOfCreatedObject}");
+
             CustomString prova3 = new CustomString("Stringa3");
+
+            Console.WriteLine($"Numero di oggetti creati: {CustomString.NumberOfCreatedObject}");
             CustomString prova4 = new CustomString("Stringa4");
+
+            Console.WriteLine($"Numero di oggetti creati: {CustomString.NumberOfCreatedObject}");
             CustomString prova5 = new CustomString("Stringa5");
+
+            Console.WriteLine($"Numero di oggetti creati: {CustomString.NumberOfCreatedObject}");
+
+
+            Scambia(ref prova1, ref prova2);
+            Scambia(ref prova3, ref prova4);
+
 
             list.Add(prova1);
             list.Add(prova2);
