@@ -6,18 +6,28 @@ namespace SingletonEasy
 {
     delegate void LoggerDelegate(string message);
 
+    class Cliente { int id; }
+
     class Transazione
     {
         LoggerDelegate? metodoLogger = null;
 
-        public Transazione(LoggerDelegate metodoLogger)
+        Action<String>? metodoAlternativo = null;
+
+        public Transazione(LoggerDelegate metodoLogger, Action<string> metodoAlternativo)
         {
             this.metodoLogger = metodoLogger;
+            this.metodoAlternativo = metodoAlternativo;
         }
 
         public void AddDelegates(LoggerDelegate metodoLogger)
         {
             this.metodoLogger += metodoLogger;
+        }
+
+        public void AddAction(Action<String> metodoAlternativo)
+        {
+            this.metodoAlternativo += metodoAlternativo;
         }
 
         public void Check(DateTime dateTime)
@@ -37,6 +47,21 @@ namespace SingletonEasy
             {
                 Console.WriteLine("metodoLogger è null");
             }
+
+            if(metodoAlternativo is not null)
+            {
+                if (condizione)
+                {
+                      metodoAlternativo("Alternative method - " + dateTime.ToString()); // qui useremo l'action
+                }
+            }
+        }
+
+        // func elenca parametri + tipo restituito esempio 3 parametri + tipo restituito => Func<param1, param2, param3, tipoRestituito>
+        public double Contabilizza(double acconto, Func<double, double> sconto, Predicate<Cliente> HaDirittoSconto)
+        {
+            // new Cliente deve essere il cliente da analizzare
+            return HaDirittoSconto(new Cliente()) ? acconto - sconto(acconto) : acconto;
         }
     }
 
@@ -60,6 +85,20 @@ namespace SingletonEasy
             Console.WriteLine($"TerzoTipoDiLog: {message}");
         }
 
+        static double ScontoCliente(double acconto)
+        {
+            return acconto * 0.1;
+        }
+
+        static double ScontoFornitore(double acconto)
+        {
+            return acconto * 0.2;
+        }
+
+        static bool ValutaSeClienteHaDirittoSconto(Cliente cliente)
+        {
+            return true;
+        }
 
         static void Main(string[] args)
         {
@@ -136,10 +175,11 @@ namespace SingletonEasy
             player3.IncreaseExperience(100);
 
 
+            Console.WriteLine("######################################################################");
 
-            Transazione t1 = new Transazione(PrimoTipoDiLog);
-            Transazione t2 = new Transazione(SecondoTipoDiLog);
-            Transazione t3 = new Transazione(TerzoTipoDiLog);
+            Transazione t1 = new Transazione(PrimoTipoDiLog, PrimoTipoDiLog);
+            Transazione t2 = new Transazione(SecondoTipoDiLog, PrimoTipoDiLog);
+            Transazione t3 = new Transazione(TerzoTipoDiLog, PrimoTipoDiLog);
 
             t1.Check(DateTime.Now);
             Thread.Sleep(1000);
@@ -151,7 +191,11 @@ namespace SingletonEasy
             Console.WriteLine("Aggiungo un altro metodo di log al delegate");
             t1.AddDelegates(SecondoTipoDiLog);
             t1.Check(DateTime.Now);
-            
+
+            Console.WriteLine("Sconto Cliente: "+t1.Contabilizza(100, ScontoCliente, ValutaSeClienteHaDirittoSconto));
+
+            Console.WriteLine("Sconto Fornitore: "+ t1.Contabilizza(100, ScontoFornitore, ValutaSeClienteHaDirittoSconto));
+
 
             
 
